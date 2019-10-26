@@ -30,7 +30,7 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
     public Cursor getAllData(){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db =  this.getWritableDatabase();
         Cursor res = db.rawQuery(" select * from "+TABLE_NAME,null);
         return res;
     }
