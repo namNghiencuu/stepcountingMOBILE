@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
 
+
     private int numSteps;
 
     @Override
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         ViewPager viewPager = findViewById(R.id.viewPager);
         TabLayout tabs = findViewById(R.id.tabLayout);
         appBarLayout = (AppBarLayout) findViewById(R.id.appBarLayout);
@@ -39,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         sectionsPagerAdapter.AddFragment(new FragmentStatistic(),"Statistic");
         viewPager.setAdapter(sectionsPagerAdapter);
         tabs.setupWithViewPager(viewPager);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
 
         // Get an instance of the SensorManager

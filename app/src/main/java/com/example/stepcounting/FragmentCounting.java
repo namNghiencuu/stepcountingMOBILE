@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -32,12 +33,13 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     public FragmentCounting(){}
 
     TextView TvSteps;
+
     Button BtnStart;
     Button BtnStop;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_counting, container, false);
         TvSteps = (TextView)view.findViewById(R.id.tv_steps) ;
         BtnStart = (Button)view.findViewById(R.id.btn_start);
         BtnStop = (Button)view.findViewById(R.id.btn_stop);
@@ -48,9 +50,35 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
 
 
 
+//
+//        BtnStart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View arg0) {
+//
+//                numSteps = 0;
+//                sensorManager.registerListener(FragmentCounting.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+//
+//            }
+//        });
+//
+//
+//        BtnStop.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View arg0) {
+//
+//                sensorManager.unregisterListener(FragmentCounting.this);
+//
+//            }
+//        });
+
+        return view;
+
+    };
+
+    public void setAllOnClick(View view){
 
         BtnStart.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View arg0) {
 
@@ -70,11 +98,7 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
 
             }
         });
-
-        return view;
-
-    };
-
+    }
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
