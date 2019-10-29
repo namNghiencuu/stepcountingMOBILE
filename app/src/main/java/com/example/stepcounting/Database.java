@@ -1,5 +1,6 @@
 package com.example.stepcounting;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,4 +35,14 @@ public class Database extends SQLiteOpenHelper {
         Cursor res = db.rawQuery(" select * from "+TABLE_NAME,null);
         return res;
     }
+    public boolean insertData(String NumStep){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COl_2 , NumStep);
+        long results = db.insert(TABLE_NAME,null, contentValues);
+        if (results == -1)
+            return false;
+        else
+            return true;
+    };
 }
