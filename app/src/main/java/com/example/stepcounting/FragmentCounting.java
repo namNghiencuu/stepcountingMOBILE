@@ -1,6 +1,8 @@
 package com.example.stepcounting;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +23,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.common.internal.Constants;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 
 import static android.content.Context.SENSOR_SERVICE;
 
 public class FragmentCounting extends Fragment implements StepListener, SensorEventListener {
+    private String TAG = MainActivity.class.getSimpleName();
+    BroadcastReceiver broadcastReceiver;
+
+    private TextView txtActivity, txtConfidence;
+    private ImageView imgActivity;
+    private Button btnStartTrcking, btnStopTracking;
+
     View view;
     Database myDB;
     private TextView textView;
@@ -38,6 +49,7 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     public FragmentCounting(Context context) {
         this.mcontext = context;
     }
+
 
     public FragmentCounting(){}
 
@@ -60,6 +72,8 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
         AddData();
         setAllOnClick(view);
         myDB = new Database(getActivity());
+
+
 
 
 
@@ -140,5 +154,6 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
             }
         });
     }
+
 
 }
