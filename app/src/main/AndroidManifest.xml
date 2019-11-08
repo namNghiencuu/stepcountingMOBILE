@@ -17,6 +17,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Service that provides activity recognition data. Setting the android:exported attribute
+       to "false" stops other apps from starting this service, even when using an explicit
+       intent. -->
+        <service
+            android:name=".DetectedActivitiesIntentService"
+            android:exported="false" />
+
+        <service android:name=".BackgroundDetectedActivitiesService"></service>
+        <service android:enabled="true" android:name=".FragmentCounting" />
     </application>
 
 </manifest>
