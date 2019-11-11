@@ -33,9 +33,16 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     private String TAG = MainActivity.class.getSimpleName();
     BroadcastReceiver broadcastReceiver;
 
+<<<<<<< Updated upstream
     private TextView txtActivity, txtConfidence;
     private ImageView imgActivity;
     private Button btnStartTrcking, btnStopTracking;
+=======
+    TextView txtActivity, txtConfidence;
+    ImageView imgActivity;
+    Button btnStartTracking, btnStopTracking;
+    private Context context;
+>>>>>>> Stashed changes
 
     View view;
     Database myDB;
@@ -73,9 +80,42 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
         setAllOnClick(view);
         myDB = new Database(getActivity());
 
+<<<<<<< Updated upstream
 
 
 
+=======
+        txtActivity = (TextView)view.findViewById(R.id.txt_activity);
+        txtConfidence =(TextView)view.findViewById(R.id.txt_confidence);
+        imgActivity = (ImageView)view.findViewById(R.id.img_activity);
+        btnStartTracking = (Button)view.findViewById(R.id.btn_start_tracking);
+        btnStopTracking = (Button)view.findViewById(R.id.btn_stop_tracking);
+
+        btnStartTracking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startTracking();
+            }
+        });
+
+        btnStopTracking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopTracking();
+            }
+        });
+
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(Constants.BROADCAST_DETECTED_ACTIVITY)) {
+                    int type = intent.getIntExtra("type", -1);
+                    int confidence = intent.getIntExtra("confidence", 0);
+                    handleUserActivity(type, confidence);
+                }
+            }
+        };
+>>>>>>> Stashed changes
 
 //
 //        BtnStart.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +138,6 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
 //
 //            }
 //        });
-
         return view;
 
     };
@@ -156,4 +195,44 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     }
 
 
+<<<<<<< Updated upstream
+=======
+        Log.e(TAG, "User activity: " + label + ", Confidence: " + confidence);
+
+        if (confidence > com.example.stepcounting.Constants.CONFIDENCE) {
+            txtActivity.setText(label);
+            txtConfidence.setText("Confidence: " + confidence);
+            imgActivity.setImageResource(icon);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        LocalBroadcastManager.getInstance(FragmentCounting.this.getActivity()).registerReceiver(broadcastReceiver,
+                new IntentFilter(com.example.stepcounting.Constants.BROADCAST_DETECTED_ACTIVITY));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        LocalBroadcastManager.getInstance(FragmentCounting.this.getActivity()).unregisterReceiver(broadcastReceiver);
+    }
+    public void startTracking() {
+
+
+                Intent intent = new Intent(getActivity(), BackgroundDetectedActivitiesService.class);
+                getActivity().startService(intent);
+    }
+
+    public void stopTracking() {
+
+                Intent intent = new Intent(getActivity(), BackgroundDetectedActivitiesService.class);
+                getActivity().stopService(intent);
+    }
+
+
+>>>>>>> Stashed changes
 }
