@@ -3,11 +3,13 @@ package com.example.stepcounting;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +20,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.android.gms.common.internal.Constants;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.gms.location.DetectedActivity;
 
 import static android.content.Context.SENSOR_SERVICE;
 
@@ -33,16 +31,10 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     private String TAG = MainActivity.class.getSimpleName();
     BroadcastReceiver broadcastReceiver;
 
-<<<<<<< Updated upstream
-    private TextView txtActivity, txtConfidence;
-    private ImageView imgActivity;
-    private Button btnStartTrcking, btnStopTracking;
-=======
     TextView txtActivity, txtConfidence;
     ImageView imgActivity;
     Button btnStartTracking, btnStopTracking;
     private Context context;
->>>>>>> Stashed changes
 
     View view;
     Database myDB;
@@ -52,13 +44,8 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     private Sensor accel;
     private static final String TEXT_NUM_STEPS = "Number of Steps: ";
     private int numSteps;
-    private  Context mcontext;
-    public FragmentCounting(Context context) {
-        this.mcontext = context;
-    }
 
 
-    public FragmentCounting(){}
 
     TextView TvSteps;
     Button BtnStart;
@@ -72,7 +59,8 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
         BtnStop = (Button)view.findViewById(R.id.btn_stop);
         BtnSave = (Button)view.findViewById(R.id.btn_save);
 
-        sensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
+
+        sensorManager = (SensorManager)getActivity().getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
@@ -80,11 +68,6 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
         setAllOnClick(view);
         myDB = new Database(getActivity());
 
-<<<<<<< Updated upstream
-
-
-
-=======
         txtActivity = (TextView)view.findViewById(R.id.txt_activity);
         txtConfidence =(TextView)view.findViewById(R.id.txt_confidence);
         imgActivity = (ImageView)view.findViewById(R.id.img_activity);
@@ -115,7 +98,6 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
                 }
             }
         };
->>>>>>> Stashed changes
 
 //
 //        BtnStart.setOnClickListener(new View.OnClickListener() {
@@ -193,10 +175,51 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
             }
         });
     }
+    private void handleUserActivity(int type, int confidence) {
+        String label = getString(R.string.activity_unknown);
+        int icon = R.drawable.ic_still;
 
+        switch (type) {
+            case DetectedActivity.IN_VEHICLE: {
+                label = getString(R.string.activity_in_vehicle);
+                icon = R.drawable.ic_driving;
+                break;
+            }
+            case DetectedActivity.ON_BICYCLE: {
+                label = getString(R.string.activity_on_bicycle);
+                icon = R.drawable.ic_on_bicycle;
+                break;
+            }
+            case DetectedActivity.ON_FOOT: {
+                label =   getString(R.string.activity_on_foot);
+                icon = R.drawable.ic_walking;
+                break;
+            }
+            case DetectedActivity.RUNNING: {
+                label = getString(R.string.activity_running);
+                icon = R.drawable.ic_running;
+                break;
+            }
+            case DetectedActivity.STILL: {
+                label = getString(R.string.activity_still);
+                break;
+            }
+            case DetectedActivity.TILTING: {
+                label = getString(R.string.activity_tilting);
+                icon = R.drawable.ic_tilting;
+                break;
+            }
+            case DetectedActivity.WALKING: {
+                label = getString(R.string.activity_walking);
+                icon = R.drawable.ic_walking;
+                break;
+            }
+            case DetectedActivity.UNKNOWN: {
+                label = getString(R.string.activity_unknown);
+                break;
+            }
+        }
 
-<<<<<<< Updated upstream
-=======
         Log.e(TAG, "User activity: " + label + ", Confidence: " + confidence);
 
         if (confidence > com.example.stepcounting.Constants.CONFIDENCE) {
@@ -234,5 +257,4 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     }
 
 
->>>>>>> Stashed changes
 }
