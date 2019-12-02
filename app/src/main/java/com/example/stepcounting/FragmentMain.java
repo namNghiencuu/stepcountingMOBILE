@@ -69,6 +69,7 @@ public class FragmentMain extends Fragment {
                         while(res.moveToNext()){
                             buffer.append("ID" + res.getString(0) + "\n");
                             buffer.append("Step" + res.getString(1) + "\n");
+                            buffer.append("Date" + res.getString(2) + "\n");
                         }
                         showMessage("Data", buffer.toString());
                     }
