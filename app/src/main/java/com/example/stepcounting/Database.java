@@ -6,10 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
 public class Database extends SQLiteOpenHelper {
     //Tên DB, tên Table, Tên Column
-    public static final String DATABASE_NAME = "counting_1.db";
+    public static final String DATABASE_NAME = "counting_2.db";
     public static final String TABLE_NAME = "counting_table";
     public static final String COl_1 = "ID";
     public static final String COl_2 ="Step";
@@ -22,7 +21,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Tạo bảng
-        db.execSQL(" CREATE TABLE "+TABLE_NAME +" ("+COl_1+" INTEGER primary key, "+COl_2+" INTEGER, "+COL_3+" DATETIME DEFAULT CURRENT_TIMESTAMP)");
+        db.execSQL(" CREATE TABLE "+TABLE_NAME +" ("+COl_1+" INTEGER primary key, "+COl_2+" INTEGER, "+COL_3+" DATE DEFAULT CURRENT_DATE)");
     }
 
     @Override
@@ -36,10 +35,10 @@ public class Database extends SQLiteOpenHelper {
         Cursor res = db.rawQuery(" select * from "+TABLE_NAME,null);
         return res;
     }
-    public boolean insertData(String NumStep){
+    public boolean insertData(Integer numSteps){
         SQLiteDatabase db =  this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COl_2 , NumStep);
+        contentValues.put(COl_2 ,numSteps);
         long results = db.insert(TABLE_NAME,null, contentValues);
         if (results == -1)
             return false;

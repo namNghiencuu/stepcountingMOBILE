@@ -50,43 +50,43 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     TextView TvSteps;
     Button BtnStart;
     Button BtnStop;
-    Button BtnSave;
+    //Button BtnSave;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         view = inflater.inflate(R.layout.fragment_counting, container, false);
-        TvSteps = (TextView)view.findViewById(R.id.tv_steps) ;
-        BtnStart = (Button)view.findViewById(R.id.btn_start);
-        BtnStop = (Button)view.findViewById(R.id.btn_stop);
-        BtnSave = (Button)view.findViewById(R.id.btn_save);
+        TvSteps = view.findViewById(R.id.tv_steps);
+        BtnStart = view.findViewById(R.id.btn_start);
+        BtnStop = view.findViewById(R.id.btn_stop);
+//        BtnSave = (Button)view.findViewById(R.id.btn_save);
 
 
         sensorManager = (SensorManager)getActivity().getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
-        AddData();
+        //AddData();
         setAllOnClick(view);
         myDB = new Database(getActivity());
 
-        txtActivity = (TextView)view.findViewById(R.id.txt_activity);
-        txtConfidence =(TextView)view.findViewById(R.id.txt_confidence);
-        imgActivity = (ImageView)view.findViewById(R.id.img_activity);
-        btnStartTracking = (Button)view.findViewById(R.id.btn_start_tracking);
-        btnStopTracking = (Button)view.findViewById(R.id.btn_stop_tracking);
+        txtActivity = view.findViewById(R.id.txt_activity);
+        txtConfidence = view.findViewById(R.id.txt_confidence);
+        imgActivity = view.findViewById(R.id.img_activity);
+        //btnStartTracking = (Button)view.findViewById(R.id.btn_start_tracking);
+        //btnStopTracking = (Button)view.findViewById(R.id.btn_stop_tracking);
 
-        btnStartTracking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startTracking();
-            }
-        });
+        //btnStartTracking.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+            //public void onClick(View view) {
+              //  startTracking();
+            //}
+        //});
 
-        btnStopTracking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                stopTracking();
-            }
-        });
+        //btnStopTracking.setOnClickListener(new View.OnClickListener() {
+          //  @Override
+            //public void onClick(View view) {
+              //  stopTracking();
+            //}
+        //});
 
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -122,7 +122,7 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
 //        });
         return view;
 
-    };
+    }
 
     public void setAllOnClick(View view){
 
@@ -132,6 +132,8 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
 
                 numSteps = 0;
                 sensorManager.registerListener(FragmentCounting.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+                Intent intent = new Intent(getActivity(), BackgroundDetectedActivitiesService.class);
+                getActivity().startService(intent);
 
             }
         });
@@ -143,6 +145,13 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
             public void onClick(View arg0) {
 
                 sensorManager.unregisterListener(FragmentCounting.this);
+                Intent intent = new Intent(getActivity(), BackgroundDetectedActivitiesService.class);
+                getActivity().stopService(intent);
+                boolean isInserted = myDB.insertData(numSteps);
+                if (isInserted = true)
+                    Toast.makeText(getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getContext(), "Data not Inserted", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -163,18 +172,18 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
         numSteps++;
         TvSteps.setText(TEXT_NUM_STEPS + numSteps);
     }
-    public void AddData(){
-        BtnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isInserted = myDB.insertData(TvSteps.getText().toString());
-                if (isInserted = true)
-                    Toast.makeText(getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getContext(), "Data not Inserted", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
+    //public void AddData(){
+      //  BtnSave.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+          //  public void onClick(View v) {
+            //    boolean isInserted = myDB.insertData(TvSteps.getText().toString());
+              //  if (isInserted = true)
+                //    Toast.makeText(getContext(), "Data Inserted", Toast.LENGTH_LONG).show();
+                //else
+                  //  Toast.makeText(getContext(), "Data not Inserted", Toast.LENGTH_LONG).show();
+            //}
+        //});
+    //}
     private void handleUserActivity(int type, int confidence) {
         String label = getString(R.string.activity_unknown);
         int icon = R.drawable.ic_still;
@@ -220,11 +229,10 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
             }
         }
 
-        Log.e(TAG, "User activity: " + label + ", Confidence: " + confidence);
+        Log.e(TAG, "User activity: " + label );
 
         if (confidence > com.example.stepcounting.Constants.CONFIDENCE) {
             txtActivity.setText(label);
-            txtConfidence.setText("Confidence: " + confidence);
             imgActivity.setImageResource(icon);
         }
     }
@@ -243,18 +251,18 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
 
         LocalBroadcastManager.getInstance(FragmentCounting.this.getActivity()).unregisterReceiver(broadcastReceiver);
     }
-    public void startTracking() {
+    //public void startTracking() {
 
 
-                Intent intent = new Intent(getActivity(), BackgroundDetectedActivitiesService.class);
-                getActivity().startService(intent);
-    }
+      //          Intent intent = new Intent(getActivity(), BackgroundDetectedActivitiesService.class);
+        //        getActivity().startService(intent);
+    //}
 
-    public void stopTracking() {
+    //public void stopTracking() {
 
-                Intent intent = new Intent(getActivity(), BackgroundDetectedActivitiesService.class);
-                getActivity().stopService(intent);
-    }
+      //          Intent intent = new Intent(getActivity(), BackgroundDetectedActivitiesService.class);
+        //        getActivity().stopService(intent);
+    //}
 
 
 }
