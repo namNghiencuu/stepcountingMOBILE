@@ -40,11 +40,12 @@
             android:layout_marginTop="10dp"
             android:textAllCaps="true"
             android:textSize="14dp" />
+
         <Button
             android:id="@+id/btn_start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start Counting" />
+            android:text="Start Tracking" />
 
         <TextView
             android:id="@+id/tv_steps"
@@ -58,31 +59,9 @@
             android:id="@+id/btn_stop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Stop Counting"
-            />
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Data" />
+            android:text="Stop Tracking" />
 
     </LinearLayout>
-    <Button
-        android:id="@+id/btn_start_tracking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Start Tracking" />
-
-    <Button
-        android:id="@+id/btn_stop_tracking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Stop Tracking" />
 
 
 </RelativeLayout>
