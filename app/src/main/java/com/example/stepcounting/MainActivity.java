@@ -34,13 +34,10 @@ public class MainActivity extends AppCompatActivity {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         sectionsPagerAdapter.AddFragment(new FragmentMain(), "Main");
         sectionsPagerAdapter.AddFragment(new FragmentCounting(),"Counting");
-        sectionsPagerAdapter.AddFragment(new FragmentStatistic(),"Statistic");
+        //sectionsPagerAdapter.AddFragment(new FragmentStatistic(),"Statistic");
         viewPager.setAdapter(sectionsPagerAdapter);
         tabs.setupWithViewPager(viewPager);
 
-
         // Get an instance of the SensorManager
-
-
     }
 }

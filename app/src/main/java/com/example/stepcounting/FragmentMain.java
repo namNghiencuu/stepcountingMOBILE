@@ -1,7 +1,11 @@
 package com.example.stepcounting;
 
+import android.app.usage.UsageEvents;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
 import java.util.Calendar;
 
@@ -45,7 +50,6 @@ public class FragmentMain extends Fragment {
                 .range(startDate,endDate)
                 .datesNumberOnScreen(5)
                 .build();
-
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {

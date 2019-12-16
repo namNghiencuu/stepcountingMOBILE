@@ -94,7 +94,7 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
                 if (intent.getAction().equals(Constants.BROADCAST_DETECTED_ACTIVITY)) {
                     int type = intent.getIntExtra("type", -1);
                     int confidence = intent.getIntExtra("confidence", 0);
-                    handleUserActivity(type, confidence);
+                    handleUserActivity(type,confidence);
                 }
             }
         };
@@ -236,7 +236,6 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
             imgActivity.setImageResource(icon);
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();
