@@ -54,9 +54,15 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         view = inflater.inflate(R.layout.fragment_counting, container, false);
+<<<<<<< HEAD
         TvSteps = view.findViewById(R.id.tv_steps);
         BtnStart = view.findViewById(R.id.btn_start);
         BtnStop = view.findViewById(R.id.btn_stop);
+=======
+        TvSteps = (TextView)view.findViewById(R.id.tv_steps) ;
+        BtnStart = (Button)view.findViewById(R.id.btn_start);
+        BtnStop = (Button)view.findViewById(R.id.btn_stop);
+>>>>>>> TestCounting
 //        BtnSave = (Button)view.findViewById(R.id.btn_save);
 
 
@@ -68,9 +74,15 @@ public class FragmentCounting extends Fragment implements StepListener, SensorEv
         setAllOnClick(view);
         myDB = new Database(getActivity());
 
+<<<<<<< HEAD
         txtActivity = view.findViewById(R.id.txt_activity);
         txtConfidence = view.findViewById(R.id.txt_confidence);
         imgActivity = view.findViewById(R.id.img_activity);
+=======
+        txtActivity = (TextView)view.findViewById(R.id.txt_activity);
+        txtConfidence =(TextView)view.findViewById(R.id.txt_confidence);
+        imgActivity = (ImageView)view.findViewById(R.id.img_activity);
+>>>>>>> TestCounting
         //btnStartTracking = (Button)view.findViewById(R.id.btn_start_tracking);
         //btnStopTracking = (Button)view.findViewById(R.id.btn_stop_tracking);
 
