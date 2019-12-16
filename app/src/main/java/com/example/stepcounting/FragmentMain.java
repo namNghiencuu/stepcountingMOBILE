@@ -48,7 +48,7 @@ public class FragmentMain extends Fragment {
 
         HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(view, R.id.calendarView)
                 .range(startDate,endDate)
-                .datesNumberOnScreen(5)
+                .datesNumberOnScreen(7)
                 .build();
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
